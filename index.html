@@ -151,6 +151,11 @@ img { display: block; max-width: 100%; }
 .today-img { width: 100%; aspect-ratio: 9 / 10; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); -webkit-touch-callout: default; }
 .save-msg { font-size: 14px; line-height: 1.55; color: var(--sub); text-align: center; }
 .save-msg[hidden] { display: none; }
+.today .linklike { align-self: center; color: var(--sub); font-size: 14px; font-weight: 400; }
+/* 버튼 모양 위에 저장할 이미지를 투명하게 덮어, 길게 누르면 그 이미지의 저장 메뉴가 뜨게 한다 */
+.hold-btn { position: relative; min-height: 56px; border-radius: 14px; background: var(--accent); color: #FFFFFF; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hold-btn:active { filter: brightness(.85); }
+.hold-btn img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: fill; opacity: .01; -webkit-touch-callout: default; }
 .foot-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .foot-row .sub-btn:last-child { background: var(--strong); border-color: var(--strong); color: #FFFFFF; }
 
@@ -277,6 +282,7 @@ img { display: block; max-width: 100%; }
   var S = { idx: 0, sel: [], mode: null, imageUrl: null };
   /* 카카오톡 안의 브라우저는 앱에서 만든 이미지 파일을 내려받지 못한다 */
   var IN_KAKAO = /KAKAOTALK/i.test(navigator.userAgent);
+  var TRANSPARENT = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
   function img(key, cls, alt) {
     return '<img class="' + cls + '" src="' + IMG[key] + '" alt="' + (alt || '') + '" draggable="false">';
@@ -410,8 +416,11 @@ img { display: block; max-width: 100%; }
       return top('mentee', 2) +
         '<main class="scroll"><div class="today pad">' +
         '<img class="today-img" id="todayImg" alt="' + altForToday() + '" src="' + (S.imageUrl || '') + '">' +
-        '<p class="save-msg" id="saveMsg"' + (IN_KAKAO ? '>카카오톡 안에서는 이미지를 바로 저장할 수 없습니다. 버튼을 누르면 브라우저에서 오늘의 카드가 그대로 열립니다.' : ' hidden>') + '</p></div></main>' +
-        '<div class="foot pad"><button class="cta accent" data-act="save" id="saveBtn">' + (IN_KAKAO ? '브라우저에서 열어 저장하기' : '이미지로 저장하기') + '</button>' +
+        '<p class="save-msg" id="saveMsg"' + (IN_KAKAO ? '>아래 버튼을 꾹 누른 뒤, 뜨는 메뉴에서 이미지 저장을 눌러주세요.' : ' hidden>') + '</p>' +
+        (IN_KAKAO ? '<button class="linklike" data-act="open-browser">저장이 안 되면 브라우저에서 열기</button>' : '') + '</div></main>' +
+        '<div class="foot pad">' + (IN_KAKAO ?
+          '<div class="hold-btn"><span>꾹 눌러서 이미지 저장</span><img id="holdImg" data-act="hold-hint" alt="꾹 눌러서 오늘의 카드 이미지 저장" src="' + (S.imageUrl || TRANSPARENT) + '"></div>' :
+          '<button class="cta accent" data-act="save" id="saveBtn">이미지로 저장하기</button>') +
         '<button class="sub-btn" data-go="home">처음으로 돌아가기</button></div>';
     }
   };
@@ -704,6 +713,8 @@ img { display: block; max-width: 100%; }
       S.imageUrl = cv.toDataURL('image/png');
       var now = document.getElementById('todayImg');
       if (now) { now.src = S.imageUrl; }
+      var hold = document.getElementById('holdImg');
+      if (hold) { hold.src = S.imageUrl; }
     }).catch(function () {
       var msg = document.getElementById('saveMsg');
       if (msg) { msg.hidden = false; msg.textContent = '이미지를 만들지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해주세요.'; }
@@ -721,19 +732,17 @@ img { display: block; max-width: 100%; }
     for (var i = 0; i < bin.length; i++) { arr[i] = bin.charCodeAt(i); }
     return new Blob([arr], { type: 'image/png' });
   }
-  function todayRoute() {
-    return 'mentee-today-' + S.sel.slice().sort(function (a, b) { return a - b; }).join('-');
-  }
   function openInBrowser() {
-    var route = todayRoute();
-    try { history.replaceState(null, '', '#' + route); } catch (e) { /* 주소를 못 바꿔도 아래 주소로 연다 */ }
+    /* 카카오톡을 거치며 # 뒷부분이 사라질 수 있어, 고른 카드를 ? 뒤에 담아 넘긴다 */
+    var picks = S.sel.slice().sort(function (x, y) { return x - y; }).join('-');
+    var query = '?today=' + picks;
+    try { history.replaceState(null, '', location.pathname + query + '#mentee-today-' + picks); } catch (e) { /* 주소를 못 바꿔도 아래 주소로 연다 */ }
     var msg = document.getElementById('saveMsg');
     msg.hidden = false;
     msg.textContent = '브라우저로 이동하지 않으면 카카오톡 메뉴에서 다른 브라우저로 열기를 눌러주세요.';
-    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.origin + location.pathname + '#' + route);
+    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.origin + location.pathname + query);
   }
   function saveImage() {
-    if (IN_KAKAO) { openInBrowser(); return; }
     var msg = document.getElementById('saveMsg');
     var hint = '저장 창이 뜨지 않으면 위 이미지를 길게 눌러 저장해주세요.';
     if (!S.imageUrl) {
@@ -817,6 +826,12 @@ img { display: block; max-width: 100%; }
       case 'slot': S.idx = i; refreshPick(); break;
       case 'pick-mode': S.mode = i; render(); break;
       case 'save': saveImage(); break;
+      case 'open-browser': openInBrowser(); break;
+      case 'hold-hint':
+        var note = document.getElementById('saveMsg');
+        note.hidden = false;
+        note.textContent = S.imageUrl ? '짧게 누르지 말고, 손가락을 떼지 않은 채 꾹 눌러주세요. 메뉴가 뜨면 이미지 저장을 눌러주세요.' : '이미지를 만드는 중입니다. 잠시 후 꾹 눌러주세요.';
+        break;
       case 'sheet-tell':
         openSheet('알려주기', '<p>상대방이 보이는 감정, 몸언어, 반복되는 이야기 패턴을 상대방에게 알려주세요.</p>');
         break;
@@ -847,6 +862,11 @@ img { display: block; max-width: 100%; }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeSheet(); } });
   window.addEventListener('hashchange', function () { closeSheet(); render(); });
   window.addEventListener('resize', layoutCards);
+  var passed = location.search.match(/[?&]today=([0-3](?:-[0-3])?)/);
+  if (passed) {
+    try { history.replaceState(null, '', location.pathname + '#mentee-today-' + passed[1]); }
+    catch (e) { location.hash = 'mentee-today-' + passed[1]; }
+  }
   render();
 })();
 </script>
