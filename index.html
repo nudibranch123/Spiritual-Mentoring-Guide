@@ -96,14 +96,20 @@ img { display: block; max-width: 100%; }
 
 /* 대화 나누기 */
 .talk { flex: 1 0 auto; padding-top: 12px; padding-bottom: 12px; display: flex; flex-direction: column; gap: 16px; }
-.theme { padding: 16px 18px; border-radius: 16px; background: var(--accent); color: #FFFFFF; display: flex; flex-direction: column; gap: 8px; }
-.theme h1 { font-family: var(--display); font-size: 26px; line-height: 1.3; }
-.theme p { font-size: 16px; line-height: 1.6; }
-.theme p + p { margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, .4); }
-.way { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }
-.way > i { width: 38px; height: 38px; border-radius: 50%; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-style: normal; font-size: 21px; font-weight: 700; }
-.way h2 { font-size: 17px; line-height: 38px; }
-.way p { font-size: 15px; line-height: 1.6; }
+.duo { display: grid; grid-template-columns: 136px minmax(0, 1fr); align-items: center; gap: 14px; }
+.duo { margin-bottom: 20px; }
+.pair { display: block; width: 100%; height: auto; }
+.duo-text { display: flex; flex-direction: column; gap: 6px; }
+.duo-text h1 { font-family: var(--display); font-size: 25px; line-height: 1.25; color: var(--accent); }
+.duo-text p { font-size: 14px; line-height: 1.55; }
+.duo.flip { grid-template-columns: minmax(0, 1fr) 118px; gap: 14px; align-items: start; margin-top: 14px; }
+.bubbles { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.bubble { position: relative; padding: 10px 12px; border-radius: 14px; background: var(--tint); font-size: 14px; line-height: 1.55; }
+.bubble::before { content: ""; position: absolute; right: -9px; top: 50%; margin-top: -8px; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 10px solid var(--tint); }
+.way { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 10px; }
+.way > i { margin-top: 2px; width: 32px; height: 32px; border-radius: 50%; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-style: normal; font-size: 18px; font-weight: 700; }
+.way h2 { font-size: 15px; line-height: 20px; margin-bottom: 3px; }
+.way p { font-size: 14px; line-height: 1.55; }
 .qa-list { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
 
 /* 분별 */
@@ -181,14 +187,17 @@ img { display: block; max-width: 100%; }
 .sheet h3 { font-size: 16px; }
 .qa { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
 .qa.open { border: 2px solid var(--accent); }
-.qa > button { width: 100%; min-height: 48px; padding: 8px 14px; border: 0; background: transparent; color: var(--fg); font-size: 15px; font-weight: 500; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.qa > button { width: 100%; min-height: 44px; padding: 6px 12px; border: 0; background: transparent; color: var(--fg); font-size: 14px; font-weight: 500; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .qa > button i { font-style: normal; font-size: 20px; color: var(--accent); }
 .qa.open > button { color: var(--accent); font-weight: 700; }
-.qa p { padding: 0 14px 12px; }
+.qa p { padding: 0 12px 10px; font-size: 14px; line-height: 1.55; }
 .sheet-art { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; }
 
 @media (max-height: 760px) {
   .hero { max-height: 24vh; }
+}
+@media (min-height: 761px) {
+  .duo { grid-template-columns: 150px minmax(0, 1fr); }
 }
 
 /* 주소창 때문에 세로가 짧은 폰 */
@@ -200,9 +209,12 @@ img { display: block; max-width: 100%; }
   .role-btn { min-height: 56px; }
   .linklike { min-height: 36px; }
   .talk { gap: 12px; padding-top: 8px; }
-  .theme { padding: 12px 14px; gap: 6px; }
-  .theme h1 { font-size: 22px; }
-  .theme p { font-size: 15px; }
+  .duo { grid-template-columns: 112px minmax(0, 1fr); gap: 12px; margin-bottom: 16px; }
+  .duo-text h1 { font-size: 21px; }
+  .duo-text p { font-size: 13.5px; }
+  .duo.flip { grid-template-columns: minmax(0, 1fr) 100px; gap: 12px; margin-top: 18px; }
+  .bubbles { gap: 8px; margin-top: 8px; }
+  .bubble { padding: 8px 10px; font-size: 13.5px; line-height: 1.5; }
   .step { min-height: 28px; padding-top: 4px; }
   .cta { min-height: 48px; }
   .stage { min-height: 292px; }
@@ -266,7 +278,7 @@ img { display: block; max-width: 100%; }
     '분별 단계에서, 상대방의 모습에 대해 내 의견을 강하게 내세우지 않도록 조심하며, 상대방이 스스로 자기인식을 할 수 있도록 도와줍니다.',
     '한편, 이 멘토링의 목적은 상대방이 예수님과 관계 맺고 하나님나라를 살아가도록 돕는 것임을 명확히 기억해야 합니다. 이를 위해 대화가 이 주제에서 벗어나지 않도록 주도적인 가이드 역할 또한 요구됩니다.'
   ]);
-  var MENTOR_WAYS = '<section><h2>경청하기</h2><p>내 기준이 아니라, 하나님과 상대방의 관계를 초점에 두고 이야기를 들어주세요.</p></section>' +
+  var MENTOR_WAYS = '<section><h2>경청하기</h2><p>내 기준이 아니라, 하나님과 상대방의 관계에 초점을 두고 이야기를 들어주세요.</p></section>' +
     '<section><h2>알려주기</h2><p>말하는 사람은 알게 모르게 자신에게 중요한 내용들을 감정표시, 표정이나 손짓 등 몸언어, 반복하기 등으로 나타냅니다. 상대방이 보이는 감정, 몸언어, 반복되는 이야기 패턴을 상대방에게 알려주세요.</p></section>' +
     '<section><h2>질문하기</h2><p>상대방 이야기를 듣고 요약해서 들려주거나, 더 이해하기 위한 질문을 던져, 상대방이 자기 경험을 보다 명확히 인식하고 느낄 수 있게 도와주세요.</p></section>';
   var MENTEE_GUIDE = bullets([
@@ -287,6 +299,25 @@ img { display: block; max-width: 100%; }
     if (location.hash.slice(1) === route) { render(); } else { location.hash = route; }
   }
   function resetSession() { S.idx = 0; S.sel = []; S.imageUrl = null; }
+
+  /* 무릎이 닿을 듯 가까이 마주 앉은 두 사람 */
+  function figure(main, shade) {
+    return '<path d="M26 98V118M40 98V118" stroke="#B59D7C" stroke-width="4" stroke-linecap="round" fill="none"></path>' +
+      '<rect x="14" y="92" width="36" height="7" rx="3.5" fill="#C9B491"></rect>' +
+      '<path d="M26 90H60V116H71" stroke="' + shade + '" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>' +
+      '<path d="M15 95C13 66 20 52 33 49C44 47 50 54 50 64L49 90H24Z" fill="' + main + '"></path>' +
+      '<circle cx="42" cy="29" r="15" fill="' + main + '"></circle>' +
+      '<path d="M37 60L52 77H64" stroke="' + shade + '" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>';
+  }
+  function duo(inner, flip) {
+    var art = '<svg class="pair" viewBox="0 0 150 124" aria-hidden="true">' +
+      '<ellipse cx="75" cy="118" rx="74" ry="6" style="fill:var(--tint)"></ellipse>' +
+      '<g transform="translate(-4 0)">' + figure('#B23A55', '#8E2C43') + '</g>' +
+      '<g transform="translate(154 0) scale(-1 1)">' + figure('#1F6C78', '#17525C') + '</g>' +
+      '</svg>';
+    var text = '<div class="duo-text">' + inner + '</div>';
+    return flip ? '<section class="duo flip">' + text + art + '</section>' : '<section class="duo">' + art + text + '</section>';
+  }
 
   /* 뒤로가기는 화면 흐름을 따라 한 단계 앞으로 돌아간다 */
   var PARENT = {
@@ -355,7 +386,7 @@ img { display: block; max-width: 100%; }
     'mentor-talk': function () {
       return top('mentor', 0, '<button class="ghost" data-act="sheet-guide">가이드 보기</button>') +
         '<main class="scroll"><div class="talk pad">' +
-        '<section class="theme"><h1>경청하기</h1><p>내 기준이 아니라, 하나님과 상대방의 관계를 초점에 두고 이야기를 들어주세요.</p></section>' +
+        duo('<h1>경청하기</h1><p>내 기준이 아니라, 하나님과 상대방의 관계에 초점을 두고 이야기를 들어주세요.</p>') +
         '<section class="way"><i aria-hidden="true">!</i><div><h2>알려주기</h2><p>상대방이 보이는 감정, 몸언어, 반복되는 이야기 패턴을 상대방에게 알려주세요.</p></div></section>' +
         '<section class="way"><i aria-hidden="true">Q</i><div><h2>질문하기</h2><p>적절한 타이밍에 대화를 안내해주세요.</p><div class="qa-list" id="qaList">' + qaHtml(-1) + '</div></div></section>' +
         '</div></main>' +
@@ -364,7 +395,7 @@ img { display: block; max-width: 100%; }
     'mentee-talk': function () {
       return top('mentee', 0, '<button class="ghost" data-act="sheet-guide">가이드 보기</button>') +
         '<main class="scroll"><div class="talk pad">' +
-        '<section class="theme"><h1>이야기하기</h1><p>최근에 어떤 일을 겪었나요? 그 일은 나에게 어떤 영향을 주었나요?</p><p>최근 기도생활은 어떤가요? 기도 시간은 나에게 어떤 경험과 감정으로 남아있나요?</p></section>' +
+        duo('<h1>이야기하기</h1><div class="bubbles"><p class="bubble">최근에 어떤 일을 겪었나요? 그 일은 나에게 어떤 영향을 주었나요?</p><p class="bubble">최근 기도생활은 어떤가요? 기도 시간은 나에게 어떤 경험과 감정으로 남아있나요?</p></div>', true) +
         '<section class="way"><i aria-hidden="true">!</i><div><h2>인식하기</h2><p>상대방이 알려주는 나의 감정과 패턴에 귀 기울여주세요.</p></div></section>' +
         '<section class="way"><i aria-hidden="true">A</i><div><h2>대답하기</h2><p>받은 질문에 떠오르는 대로 답해주세요.</p></div></section>' +
         '</div></main>' +
