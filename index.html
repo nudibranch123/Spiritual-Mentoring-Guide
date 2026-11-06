@@ -94,17 +94,17 @@ img { display: block; max-width: 100%; }
 .read .note { padding: 12px 16px; border-radius: 14px; background: var(--tint); font-size: 15px; line-height: 1.6; }
 .pageno { font-size: 13px; color: var(--sub); }
 
-/* 멘토 대화 */
-.listen { flex: 1 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding-top: 12px; padding-bottom: 12px; }
-.ring { width: min(290px, 38vh, 76vw); aspect-ratio: 1; border-radius: 50%; background: var(--tint-soft); display: flex; align-items: center; justify-content: center; }
-.ring > div { width: 74%; height: 74%; border-radius: 50%; background: var(--tint); display: flex; align-items: center; justify-content: center; }
-.ring > div > div { width: 68%; height: 68%; border-radius: 50%; background: var(--accent); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: clamp(21px, 3.4vh, 27px); font-weight: 700; white-space: nowrap; }
-.listen p { font-size: 18px; line-height: 1.6; text-align: center; text-wrap: balance; }
-.tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.tool { min-height: 76px; padding: 6px; border: 2px solid var(--accent); border-radius: 16px; background: var(--surface); color: var(--accent); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 17px; font-weight: 700; }
-.tool i { width: 38px; height: 38px; flex: none; border-radius: 50%; background: var(--tint); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-style: normal; font-size: 21px; }
-
-.note { padding: 12px 16px; border-radius: 14px; background: var(--tint); font-size: 15px; line-height: 1.6; }
+/* 대화 나누기 */
+.talk { flex: 1 0 auto; padding-top: 12px; padding-bottom: 12px; display: flex; flex-direction: column; gap: 16px; }
+.theme { padding: 16px 18px; border-radius: 16px; background: var(--accent); color: #FFFFFF; display: flex; flex-direction: column; gap: 8px; }
+.theme h1 { font-family: var(--display); font-size: 26px; line-height: 1.3; }
+.theme p { font-size: 16px; line-height: 1.6; }
+.theme p + p { margin-top: 2px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, .4); }
+.way { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }
+.way > i { width: 38px; height: 38px; border-radius: 50%; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-style: normal; font-size: 21px; font-weight: 700; }
+.way h2 { font-size: 17px; line-height: 38px; }
+.way p { font-size: 15px; line-height: 1.6; }
+.qa-list { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }
 
 /* 분별 */
 .discern { padding-top: 10px; padding-bottom: 12px; display: flex; flex-direction: column; gap: 12px; }
@@ -115,8 +115,6 @@ img { display: block; max-width: 100%; }
 .mode img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
 .mode span { padding: 8px 10px 9px; display: block; font-size: 16px; font-weight: 700; }
 .mode small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; line-height: 1.4; }
-.mode[aria-pressed="true"] { color: var(--accent); box-shadow: 0 0 0 2px var(--accent); border-color: var(--accent); }
-.detail { padding: 12px 16px; border-radius: 14px; background: var(--tint); font-size: 15px; line-height: 1.6; display: flex; flex-direction: column; gap: 4px; }
 .hint { font-size: 14px; color: var(--sub); text-align: center; }
 
 /* 다음 스텝: 보드게임 카드 */
@@ -183,10 +181,10 @@ img { display: block; max-width: 100%; }
 .sheet h3 { font-size: 16px; }
 .qa { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
 .qa.open { border: 2px solid var(--accent); }
-.qa > button { width: 100%; min-height: 56px; padding: 10px 16px; border: 0; background: transparent; color: var(--fg); font-size: 16px; font-weight: 500; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.qa > button { width: 100%; min-height: 48px; padding: 8px 14px; border: 0; background: transparent; color: var(--fg); font-size: 15px; font-weight: 500; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .qa > button i { font-style: normal; font-size: 20px; color: var(--accent); }
 .qa.open > button { color: var(--accent); font-weight: 700; }
-.qa p { padding: 0 16px 14px; }
+.qa p { padding: 0 14px 12px; }
 .sheet-art { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; }
 
 @media (max-height: 760px) {
@@ -201,18 +199,17 @@ img { display: block; max-width: 100%; }
   .lede { font-size: 14px; }
   .role-btn { min-height: 56px; }
   .linklike { min-height: 36px; }
-  .ring { width: min(28vh, 76vw); }
-  .ring > div > div { width: 78%; height: 78%; font-size: 16px; }
-  .listen { gap: 10px; padding-top: 8px; padding-bottom: 8px; }
-  .listen p { font-size: 16px; }
-  .tool { min-height: 60px; }
+  .talk { gap: 12px; padding-top: 8px; }
+  .theme { padding: 12px 14px; gap: 6px; }
+  .theme h1 { font-size: 22px; }
+  .theme p { font-size: 15px; }
   .step { min-height: 28px; padding-top: 4px; }
   .cta { min-height: 48px; }
   .stage { min-height: 292px; }
   .gcard-text { min-height: 110px; }
   .pick { gap: 4px; padding-top: 4px; }
   .ctrl { position: sticky; bottom: 0; z-index: 20; padding-block: 4px; background: var(--bg); }
-  .slots { display: none; }
+  .slot { min-height: 36px; font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -266,11 +263,10 @@ img { display: block; max-width: 100%; }
   var MENTOR_GUIDE = bullets([
     '가르치려는 자세보다는 경청하고 질문하는 자세로 마주합니다.',
     '성령의 일하심은 내 생각보다 훨씬 다양하다는 것을 겸손히 인정합니다.',
-    '분별 단계에서 상대방의 모습에 대한 내 의견을 일방적으로 관철시키지 않도록 조심하며, 상대방 스스로의 자기인식을 돕는 역할을 합니다.',
-    '하지만 이 멘토링의 목적은 상대방이 예수님과 관계 맺고 하나님나라를 살아가도록 돕는 것임을 명확히 기억해야 합니다.',
-    '대화가 이 주제에서 벗어나지 않도록 가이드 역할 또한 요구됩니다.'
+    '분별 단계에서, 상대방의 모습에 대해 내 의견을 강하게 내세우지 않도록 조심하며, 상대방이 스스로 자기인식을 할 수 있도록 도와줍니다.',
+    '한편, 이 멘토링의 목적은 상대방이 예수님과 관계 맺고 하나님나라를 살아가도록 돕는 것임을 명확히 기억해야 합니다. 이를 위해 대화가 이 주제에서 벗어나지 않도록 주도적인 가이드 역할 또한 요구됩니다.'
   ]);
-  var MENTOR_WAYS = '<section><h2>경청하기</h2><p>내 기준이 아니라 하나님과 상대방의 관계라는 기준에서 이야기를 들어주세요.</p></section>' +
+  var MENTOR_WAYS = '<section><h2>경청하기</h2><p>내 기준이 아니라, 하나님과 상대방의 관계를 초점에 두고 이야기를 들어주세요.</p></section>' +
     '<section><h2>알려주기</h2><p>말하는 사람은 알게 모르게 자신에게 중요한 내용들을 감정표시, 표정이나 손짓 등 몸언어, 반복하기 등으로 나타냅니다. 상대방이 보이는 감정, 몸언어, 반복되는 이야기 패턴을 상대방에게 알려주세요.</p></section>' +
     '<section><h2>질문하기</h2><p>상대방 이야기를 듣고 요약해서 들려주거나, 더 이해하기 위한 질문을 던져, 상대방이 자기 경험을 보다 명확히 인식하고 느낄 수 있게 도와주세요.</p></section>';
   var MENTEE_GUIDE = bullets([
@@ -279,7 +275,7 @@ img { display: block; max-width: 100%; }
   ]);
 
   var app = document.getElementById('app');
-  var S = { idx: 0, sel: [], mode: null, imageUrl: null };
+  var S = { idx: 0, sel: [], imageUrl: null };
   /* 카카오톡 안의 브라우저는 앱에서 만든 이미지 파일을 내려받지 못한다 */
   var IN_KAKAO = /KAKAOTALK/i.test(navigator.userAgent);
   var TRANSPARENT = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
@@ -290,7 +286,7 @@ img { display: block; max-width: 100%; }
   function go(route) {
     if (location.hash.slice(1) === route) { render(); } else { location.hash = route; }
   }
-  function resetSession() { S.idx = 0; S.sel = []; S.mode = null; S.imageUrl = null; }
+  function resetSession() { S.idx = 0; S.sel = []; S.imageUrl = null; }
 
   /* 뒤로가기는 화면 흐름을 따라 한 단계 앞으로 돌아간다 */
   var PARENT = {
@@ -358,44 +354,37 @@ img { display: block; max-width: 100%; }
     },
     'mentor-talk': function () {
       return top('mentor', 0, '<button class="ghost" data-act="sheet-guide">가이드 보기</button>') +
-        '<main class="scroll"><div class="listen pad"><div class="ring"><div><div>경청하기</div></div></div>' +
-        '<p>내 기준이 아니라, 하나님과 상대방의 관계라는 기준에서 이야기를 들어주세요.</p></div></main>' +
-        '<div class="foot pad"><div class="tools">' +
-        '<button class="tool" data-act="sheet-tell"><i aria-hidden="true">!</i>알려주기</button>' +
-        '<button class="tool" data-act="sheet-ask"><i aria-hidden="true">Q</i>질문하기</button></div>' +
-        '<button class="cta" data-go="mentor-discern">함께 분별하기로 →</button></div>';
+        '<main class="scroll"><div class="talk pad">' +
+        '<section class="theme"><h1>경청하기</h1><p>내 기준이 아니라, 하나님과 상대방의 관계를 초점에 두고 이야기를 들어주세요.</p></section>' +
+        '<section class="way"><i aria-hidden="true">!</i><div><h2>알려주기</h2><p>상대방이 보이는 감정, 몸언어, 반복되는 이야기 패턴을 상대방에게 알려주세요.</p></div></section>' +
+        '<section class="way"><i aria-hidden="true">Q</i><div><h2>질문하기</h2><p>적절한 타이밍에 대화를 안내해주세요.</p><div class="qa-list" id="qaList">' + qaHtml(-1) + '</div></div></section>' +
+        '</div></main>' +
+        '<div class="foot pad"><button class="cta" data-go="mentor-discern">함께 분별하기로 →</button></div>';
     },
     'mentee-talk': function () {
       return top('mentee', 0, '<button class="ghost" data-act="sheet-guide">가이드 보기</button>') +
-        '<main class="scroll"><div class="listen pad"><div class="ring"><div><div>이야기하기</div></div></div>' +
-        '<p>최근 겪은 일과 기도하며 느낀 것을 정직하게 나눠주세요.</p></div></main>' +
-        '<div class="foot pad"><div class="tools">' +
-        '<button class="tool" data-act="sheet-recognize"><i aria-hidden="true">!</i>인식하기</button>' +
-        '<button class="tool" data-act="sheet-answer"><i aria-hidden="true">A</i>대답하기</button></div>' +
-        '<button class="cta" data-go="mentee-discern">함께 분별하기로 →</button></div>';
+        '<main class="scroll"><div class="talk pad">' +
+        '<section class="theme"><h1>이야기하기</h1><p>최근에 어떤 일을 겪었나요? 그 일은 나에게 어떤 영향을 주었나요?</p><p>최근 기도생활은 어떤가요? 기도 시간은 나에게 어떤 경험과 감정으로 남아있나요?</p></section>' +
+        '<section class="way"><i aria-hidden="true">!</i><div><h2>인식하기</h2><p>상대방이 알려주는 나의 감정과 패턴에 귀 기울여주세요.</p></div></section>' +
+        '<section class="way"><i aria-hidden="true">A</i><div><h2>대답하기</h2><p>받은 질문에 떠오르는 대로 답해주세요.</p></div></section>' +
+        '</div></main>' +
+        '<div class="foot pad"><button class="cta" data-go="mentee-discern">함께 분별하기로 →</button></div>';
     },
     'mentor-discern': function () {
-      var cards = MODES.map(function (m, i) {
-        return '<button class="mode" data-act="sheet-mode" data-i="' + i + '">' + img(m.img, '') + '<span>' + m.name + '<small>' + m.tag + '</small></span></button>';
-      }).join('');
+      var cards = modeCards();
       return top('mentor', 1) +
         '<main class="scroll"><div class="discern pad">' +
-        '<p class="lead">네 가지 모드는 신앙의 수준을 뜻하지 않습니다. 멘티가 하나님을 향한 자신의 영혼의 <b>현주소</b>를 스스로 선택할 수 있도록 도와주세요.</p>' +
-        '<p class="note">내 의견을 일방적으로 관철하지 않도록 조심해주세요.</p>' +
+        '<p class="lead">대화 속에서 발견한 상대방의 영혼의 모습을 분별해봅시다. 네 가지 모드는 신앙의 수준을 뜻하지 않습니다. 상대방이 하나님을 향한 자신의 영혼의 <b>현주소</b>를 스스로 선택할 수 있도록 도와주세요.</p>' +
+        '<p class="note">내 의견을 강하게 내세우지 않도록 조심해주세요.</p>' +
         '<div class="modes">' + cards + '</div><p class="hint">카드를 누르면 설명을 볼 수 있습니다.</p></div></main>' +
         '<div class="foot pad"><button class="cta" data-go="mentor-next">다음 스텝 정하기로 →</button></div>';
     },
     'mentee-discern': function () {
-      var cards = MODES.map(function (m, i) {
-        var on = S.mode === i;
-        return '<button class="mode" data-act="pick-mode" data-i="' + i + '" aria-pressed="' + on + '">' + img(m.img, '') + '<span>' + (on ? '✓ ' : '') + m.name + '</span></button>';
-      }).join('');
-      var detail = S.mode === null ? '<p class="hint">카드를 누르면 설명이 열립니다.</p>' :
-        '<div class="detail">' + MODES[S.mode].lines.map(function (l) { return '<div>' + l + '</div>'; }).join('') + '</div>';
+      var cards = modeCards();
       return top('mentee', 1) +
         '<main class="scroll"><div class="discern pad">' +
-        '<p class="lead">네 가지 모드는 신앙의 수준을 뜻하지 않습니다. 멘토와 대화하며 하나님을 향한 나의 영혼의 <b>현주소</b>를 스스로 선택해보세요.</p>' +
-        '<div class="modes">' + cards + '</div>' + detail + '</div></main>' +
+        '<p class="lead">대화 속에서 발견한 나의 영혼의 모습을 분별해봅시다. 네 가지 모드는 신앙의 수준을 뜻하지 않습니다. 멘토와 대화하며 하나님을 향한 나의 영혼의 <b>현주소</b>를 스스로 선택해보세요.</p>' +
+        '<div class="modes">' + cards + '</div><p class="hint">카드를 누르면 설명을 볼 수 있습니다.</p></div></main>' +
         '<div class="foot pad"><button class="cta" data-go="mentee-next">다음 스텝 정하기로 →</button></div>';
     },
     'mentor-next': function () { return nextScreen('mentor'); },
@@ -424,6 +413,12 @@ img { display: block; max-width: 100%; }
         '<button class="sub-btn" data-go="home">처음으로 돌아가기</button></div>';
     }
   };
+
+  function modeCards() {
+    return MODES.map(function (m, i) {
+      return '<button class="mode" data-act="sheet-mode" data-i="' + i + '">' + img(m.img, '') + '<span>' + m.name + '<small>' + m.tag + '</small></span></button>';
+    }).join('');
+  }
 
   function nextScreen(role) {
     var cards = CARDS.map(function (c, i) {
@@ -557,11 +552,8 @@ img { display: block; max-width: 100%; }
   function qaHtml(openIdx) {
     return QUESTIONS.map(function (x, i) {
       var open = i === openIdx;
-      return '<div class="qa' + (open ? ' open' : '') + '"><button data-act="qa" data-i="' + i + '" aria-expanded="' + open + '"><span>Q. ' + x.q + '</span><i aria-hidden="true">' + (open ? '−' : '+') + '</i></button>' + (open ? '<p>' + x.a + '</p>' : '') + '</div>';
+      return '<div class="qa' + (open ? ' open' : '') + '"><button data-act="qa" data-i="' + i + '" aria-expanded="' + open + '"><span>' + x.q + '</span><i aria-hidden="true">' + (open ? '−' : '+') + '</i></button>' + (open ? '<p>' + x.a + '</p>' : '') + '</div>';
     }).join('');
-  }
-  function askBody(openIdx) {
-    return '<p>적절한 타이밍에 아래와 같은 질문으로 대화를 안내해주세요.</p><div id="qaList" style="display:flex;flex-direction:column;gap:10px">' + qaHtml(openIdx) + '</div>';
   }
 
   /* ---------- 저장 이미지 ---------- */
@@ -824,7 +816,6 @@ img { display: block; max-width: 100%; }
       case 'next': if (S.idx < CARDS.length - 1) { S.idx++; refreshPick(); } break;
       case 'toggle': toggleCurrent(); break;
       case 'slot': S.idx = i; refreshPick(); break;
-      case 'pick-mode': S.mode = i; render(); break;
       case 'save': saveImage(); break;
       case 'open-browser': openInBrowser(); break;
       case 'hold-hint':
@@ -832,16 +823,6 @@ img { display: block; max-width: 100%; }
         note.hidden = false;
         note.textContent = S.imageUrl ? '짧게 누르지 말고, 손가락을 떼지 않은 채 꾹 눌러주세요. 메뉴가 뜨면 이미지 저장을 눌러주세요.' : '이미지를 만드는 중입니다. 잠시 후 꾹 눌러주세요.';
         break;
-      case 'sheet-tell':
-        openSheet('알려주기', '<p>상대방이 보이는 감정, 몸언어, 반복되는 이야기 패턴을 상대방에게 알려주세요.</p>');
-        break;
-      case 'sheet-recognize':
-        openSheet('인식하기', '<p>상대방이 알려주는 나의 감정과 패턴에 귀 기울여주세요.</p>');
-        break;
-      case 'sheet-answer':
-        openSheet('대답하기', '<p>적절한 타이밍에 받은 질문에 떠오르는 대로 답해주세요.</p>');
-        break;
-      case 'sheet-ask': openSheet('질문하기', askBody(-1)); break;
       case 'qa':
         var list = document.getElementById('qaList');
         var isOpen = el.getAttribute('aria-expanded') === 'true';
